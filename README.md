@@ -1,5 +1,7 @@
 # build_note
 
+[![test](https://github.com/Crytus/build_note/actions/workflows/test.yml/badge.svg)](https://github.com/Crytus/build_note/actions/workflows/test.yml)
+
 Markdown ファイルを読み、**中の表だけを note.com 用の KaTeX 表に書き換えて出力**する小さなコマンドラインツールです。
 
 note は Markdown のテーブル記法を描画しないため、表は `$$ … $$` で囲んだ KaTeX の `array` 環境で書く必要があります。手で書くと必ずと言っていいほど特定の落とし穴（[後述](#なぜ専用ツールが必要か)）で壊れるので、変換と**貼り付け前の検査**を自動化しました。

@@ -1,0 +1,42 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: unit tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # README で「3.9 以上」と書いているので、下限と現行を両方まわす
+        python-version: ["3.9", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Show version
+        run: python --version
+
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Smoke test (convert the example and inspect the output)
+        run: |
+          python build_note.py examples/example.md -o /tmp/out.md --check /tmp/check.html
+          test -s /tmp/out.md
+          test -s /tmp/check.html
+          grep -q 'begin{array}' /tmp/out.md          # 表が KaTeX に変換されている
+          ! grep -qE '^\|.*\|$' /tmp/out.md           # Markdown の表が残っていない
+          grep -q 'window.__r' /tmp/check.html        # 検証HTMLが生成されている
+
+      - name: Fail if the working tree is dirty
+        run: git diff --exit-code
