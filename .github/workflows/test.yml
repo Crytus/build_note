@@ -9,17 +9,22 @@ on:
 jobs:
   test:
     name: unit tests (Python ${{ matrix.python-version }})
-    runs-on: ubuntu-latest
+    # OSは明示的に固定する。ubuntu-latest は Ubuntu 26.04 に移行しており、
+    # そこには Python 3.9 のビルドが無いため setup-python が失敗する。
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        # README で「3.9 以上」と書いているので、下限と現行を両方まわす
-        python-version: ["3.9", "3.12", "3.13"]
+        include:
+          - { python-version: "3.9",  os: ubuntu-22.04 }   # README で謳う下限
+          - { python-version: "3.12", os: ubuntu-24.04 }
+          - { python-version: "3.13", os: ubuntu-24.04 }
+          - { python-version: "3.14", os: ubuntu-24.04 }   # 現行
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
