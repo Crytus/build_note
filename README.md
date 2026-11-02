@@ -40,7 +40,7 @@ $ python build_note.py article.md
 ダウンロードして展開するだけです。`pip install` は不要です。
 
 ```bash
-git clone https://github.com/<your-account>/build_note.git
+git clone https://github.com/Crytus/build_note.git
 cd build_note
 ```
 
