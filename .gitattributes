@@ -1,0 +1,12 @@
+# 改行コードの扱い（Windows/macOS/Linux混在での差分ノイズを防ぐ）
+* text=auto eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+LICENSE text eol=lf
+
+# バイナリ扱い
+*.png binary
+*.jpg binary
+*.ico binary
+*.pdf binary

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ツールの生成物（コミットしない）
+check.html
+katex_check.html
+*_note.md
+
+# examples/ の出力サンプルは配布用にコミットする
+!examples/example_note.md
+
+# OS / エディタ
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
