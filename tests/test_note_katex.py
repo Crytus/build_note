@@ -31,6 +31,10 @@ class TestEscape(unittest.TestCase):
     def test_arrow_becomes_math_command(self):
         self.assertEqual(esc("調査→資料"), r"調査}\to\text{資料")
 
+    def test_star_becomes_math_command(self):
+        # ★ は KaTeX に字形がないため警告になる。数式の \star に置き換える。
+        self.assertEqual(esc("393,763★"), r"393,763}\star\text{")
+
     def test_euro_becomes_ascii(self):
         self.assertIn("EUR", esc("€20"))
 

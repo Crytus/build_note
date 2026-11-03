@@ -59,6 +59,10 @@ def esc(text: str) -> str:
             out.append("＄")
         elif ch == "→":
             out.append(r"}\to\text{")      # KaTeX に字形がないので数式の \to を出す
+        elif ch == "★":
+            out.append(r"}\star\text{")    # 同上（U+2605 は KaTeX の字形を持たない）
+        elif ch == "☆":
+            out.append(r"}\star\text{")
         else:
             out.append(TEX_ESCAPE.get(ch, ch))
     return "".join(out)
